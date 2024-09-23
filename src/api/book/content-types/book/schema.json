@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "books",
+  "info": {
+    "singularName": "book",
+    "pluralName": "books",
+    "displayName": "book",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name_book": {
+      "type": "string"
+    },
+    "price_book": {
+      "type": "float",
+      "unique": false,
+      "min": 0
+    },
+    "photo_book": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description_book": {
+      "type": "text"
+    },
+    "book_sinopse": {
+      "type": "text"
+    },
+    "lances": {
+      "type": "json"
+    },
+    "LancesRealizados": {
+      "type": "integer",
+      "min": 0
+    },
+    "user_create": {
+      "type": "string"
+    }
+  }
+}
