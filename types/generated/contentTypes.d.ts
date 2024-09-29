@@ -385,21 +385,58 @@ export interface ApiBookBook extends Schema.CollectionType {
     photo_book: Attribute.Media<'images'>;
     description_book: Attribute.Text;
     book_sinopse: Attribute.Text;
-    lances: Attribute.JSON;
-    LancesRealizados: Attribute.Integer &
-      Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      >;
     user_create: Attribute.String;
+    lances: Attribute.Relation<
+      'api::book.book',
+      'oneToMany',
+      'api::lance.lance'
+    >;
+    encerrado: Attribute.Boolean & Attribute.DefaultTo<false>;
+    vencedor: Attribute.String;
+    valorVencedor: Attribute.Float;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::book.book', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::book.book', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLanceLance extends Schema.CollectionType {
+  collectionName: 'lances';
+  info: {
+    singularName: 'lance';
+    pluralName: 'lances';
+    displayName: 'Lance';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    book: Attribute.Relation<'api::lance.lance', 'manyToOne', 'api::book.book'>;
+    users_permissions_user: Attribute.Relation<
+      'api::lance.lance',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    Valor: Attribute.Float;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::lance.lance',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::lance.lance',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -767,6 +804,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     credits: Attribute.Float & Attribute.DefaultTo<0>;
     Admin: Attribute.Boolean & Attribute.DefaultTo<false>;
+    lances: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::lance.lance'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -842,6 +884,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::book.book': ApiBookBook;
+      'api::lance.lance': ApiLanceLance;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

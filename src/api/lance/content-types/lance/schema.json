@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lances",
+  "info": {
+    "singularName": "lance",
+    "pluralName": "lances",
+    "displayName": "Lance",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "book": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::book.book",
+      "inversedBy": "lances"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "lances"
+    },
+    "Valor": {
+      "type": "float"
+    }
+  }
+}

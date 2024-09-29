@@ -72,6 +72,12 @@
     "Admin": {
       "type": "boolean",
       "default": false
+    },
+    "lances": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lance.lance",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

@@ -34,15 +34,24 @@
     "book_sinopse": {
       "type": "text"
     },
-    "lances": {
-      "type": "json"
-    },
-    "LancesRealizados": {
-      "type": "integer",
-      "min": 0
-    },
     "user_create": {
       "type": "string"
+    },
+    "lances": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lance.lance",
+      "mappedBy": "book"
+    },
+    "encerrado": {
+      "type": "boolean",
+      "default": false
+    },
+    "vencedor": {
+      "type": "string"
+    },
+    "valorVencedor": {
+      "type": "float"
     }
   }
 }
